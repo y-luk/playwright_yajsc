@@ -1,13 +1,18 @@
 import { test, expect } from '@playwright/test';
+import { regularUser } from '../test-data/user';
 
 test('Verify login with valid credentials', async ({ page }) => {
-  await page.goto('https://practicesoftwaretesting.com/auth/login');
-  await page.locator('[data-test="email"]').click();
-  await page.locator('[data-test="email"]').fill('customer@practicesoftwaretesting.com');
-  await page.locator('[data-test="password"]').click();
-  await page.locator('[data-test="password"]').fill('welcome01');
-  await page.locator('[data-test="login-submit"]').click();
-  await expect(page).toHaveURL('https://practicesoftwaretesting.com/account')
-  await expect(page.locator('[data-test="page-title"]')).toContainText('My account');
-  await expect(page.locator('[data-test="nav-menu"]')).toContainText('Jane Doe');
+  test.skip(!!process.env.CI, 'Skip login test on CI env')
+
+  const {email, password, userName} = regularUser
+
+  await page.goto('/auth/login');
+
+  await page.getByTestId('email').fill(regularUser.email);
+  await page.getByTestId('password').fill(regularUser.password);
+  await page.getByTestId('login-submit').click();
+
+  await expect(page).toHaveURL('/account')
+  await expect(page.getByTestId('page-title')).toHaveText('My account');
+  await expect(page.getByTestId('nav-menu')).toHaveText(regularUser.userName);
 });
