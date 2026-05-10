@@ -10,9 +10,9 @@ export class ProductPage {
 
     constructor(page: Page){
         this.page = page;
-        this.productName = this.page.locator('[data-test="product-name"]');
-        this.productPrice = this.page.locator('[data-test="unit-price"]');
-        this.addToCart = this.page.locator('[data-test="add-to-cart"]');
-        this.addToFavorites = this.page.locator('[data-test="add-to-favorites"]');
+        this.productName = this.page.getByTestId('product-name');
+        this.productPrice = this.page.getByTestId('unit-price');
+        this.addToCart = this.page.getByTestId('add-to-cart');
+        this.addToFavorites = this.page.getByTestId('add-to-favorites');
 }
 }

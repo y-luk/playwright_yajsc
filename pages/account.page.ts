@@ -8,7 +8,7 @@ export class AccountPage {
     header: HeaderFragment;
     constructor(page: Page){
         this.page = page;
-        this.pageTitle = this.page.locator('[data-test="page-title"]');
+        this.pageTitle = this.page.getByTestId('page-title');
         this.header = new HeaderFragment(page);
 }
 }
