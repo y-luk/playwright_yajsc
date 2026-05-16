@@ -1,18 +1,20 @@
 import { test, expect } from '@playwright/test';
 import { regularUser } from '../test-data/user';
+import { LoginPage } from '../pages/login.page';
+import { AccountPage } from '../pages/account.page';
 
 test('Verify login with valid credentials', async ({ page }) => {
   test.skip(!!process.env.CI, 'Skip login test on CI env')
 
-  const {email, password, userName} = regularUser
+  const loginPage = new LoginPage(page);
+  const accountPage = new AccountPage(page);
 
   await page.goto('/auth/login');
 
-  await page.getByTestId('email').fill(regularUser.email);
-  await page.getByTestId('password').fill(regularUser.password);
-  await page.getByTestId('login-submit').click();
+  await loginPage.performLogin(regularUser.email, regularUser.password);
 
-  await expect(page).toHaveURL('/account')
-  await expect(page.getByTestId('page-title')).toHaveText('My account');
-  await expect(page.getByTestId('nav-menu')).toHaveText(regularUser.userName);
+
+  await expect(page).toHaveURL('/account');
+  await expect(accountPage.pageTitle).toHaveText('My account');
+  await expect(accountPage.header.navMenu).toHaveText(regularUser.userName);
 });
