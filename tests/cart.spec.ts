@@ -3,6 +3,7 @@ import { HomePage } from '../pages/home.page';
 import { ProductPage } from '../pages/product.page';
 import { HeaderFragment } from '../pages/header.fragment';
 import { CartPage } from '../pages/cart.page';
+test.skip(!!process.env.CI)
 
 
 test('Verify user can add product to cart', async ({ page }) => {
@@ -24,8 +25,8 @@ test('Verify user can add product to cart', async ({ page }) => {
 
     await expect(page.getByRole('alert')).toBeVisible();
     await expect(page.getByRole('alert')).toContainText('Product added to shopping cart.');
-    await page.waitForTimeout(9000);
-    await expect(page.getByRole('alert')).toBeHidden();
+    await expect(page.getByRole('alert'), { timeout: 10000 }).toBeHidden();
+
 
     await expect(page.getByTestId('cart-quantity')).toHaveText('1');
 

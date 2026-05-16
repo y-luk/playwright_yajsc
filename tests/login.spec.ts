@@ -2,13 +2,13 @@ import { test, expect } from '@playwright/test';
 import { regularUser } from '../test-data/user';
 import { AccountPage } from '../pages/account.page';
 import path from 'path';
+test.skip(!!process.env.CI)
 
 const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 
 test.use({storageState: authFile});
 
 test('Verify login with valid credentials', async ({ page }) => {
-  test.skip(!!process.env.CI, 'Skip login test on CI env')
 
   const accountPage = new AccountPage(page);
 
