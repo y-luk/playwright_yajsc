@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-test.skip(!!process.env.CI)
+test.skip(!!process.env.CI);
 
 [
   { option: 'Name (A - Z)', order: 'asc' },
