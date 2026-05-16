@@ -7,7 +7,6 @@ import path from 'path';
 const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 
 test('Verify login with valid credentials', async ({ page }) => {
-  test.skip(!!process.env.CI, 'Skip login test on CI env')
 
   const loginPage = new LoginPage(page);
   const accountPage = new AccountPage(page);
