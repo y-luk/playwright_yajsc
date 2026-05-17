@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { HomePage } from '../pages/home.page';
 test.skip(!!process.env.CI);
 
 [
@@ -7,22 +8,23 @@ test.skip(!!process.env.CI);
 ].forEach(({ option, order }) => {
   test(`Verify sorting by name ${order}`, async ({ page }) => {
 
+    const homePage = new HomePage(page);
 
-await page.goto('/');
+    await page.goto('/');
 
-await page.getByTestId('sort').selectOption(option);
+    await homePage.sortDropdown.selectOption(option);
 
-const productNames = await page.getByTestId('product-name').allTextContents();
+    const productNames = await homePage.productNames.allTextContents();
 
-let sorted = [...productNames].sort();
-if (order === 'desc') {
-  sorted = sorted.reverse();
-}
+    let sorted = [...productNames].sort();
+    if (order === 'desc') {
+      sorted = sorted.reverse();
+    }
 
-expect(productNames).toEqual(sorted);
+    expect(productNames).toEqual(sorted);
 
-  });
-});
+      });
+    });
 
 
   [
@@ -31,11 +33,13 @@ expect(productNames).toEqual(sorted);
 ].forEach(({ option, order }) => {
   test(`Verify user can perform sorting by price ${order}`, async ({ page }) => {
 
+const homePage = new HomePage(page);   
+
 await page.goto('/');
 
-await page.getByTestId('sort').selectOption(option);
+await homePage.sortDropdown.selectOption(option);
 
-const priceTexts = await page.getByTestId('product-price').allTextContents();
+const priceTexts = await homePage.productPrices.allTextContents();
 const prices = priceTexts.map(p => parseFloat(p.replace('$', '')));
 let sorted = [...prices].sort((a, b) => a - b);
 if (order === 'desc') {

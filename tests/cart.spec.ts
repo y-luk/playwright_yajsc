@@ -23,12 +23,12 @@ test('Verify user can add product to cart', async ({ page }) => {
 
     await productPage.addToCart.click();
 
-    await expect(page.getByRole('alert')).toBeVisible();
-    await expect(page.getByRole('alert')).toContainText('Product added to shopping cart.');
-    await expect(page.getByRole('alert'), { timeout: 10000 }).toBeHidden();
+    await expect(productPage.alert).toBeVisible();
+    await expect(productPage.alert).toContainText('Product added to shopping cart.');
+    await expect(productPage.alert, { timeout: 10000 }).toBeHidden();
 
 
-    await expect(page.getByTestId('cart-quantity')).toHaveText('1');
+    await expect(headerFragment.cartQuantity).toHaveText('1');
 
     await headerFragment.navCart.click();
 

@@ -1,16 +1,18 @@
 import { test, expect } from '@playwright/test';
+import { HomePage } from '../pages/home.page';
 test.skip(!!process.env.CI)
 
 test('Verify user can filter products by category', async ({ page }) => {
 
+    const homePage = new HomePage(page);
 
     await page.goto('/');
 
-    await page.getByLabel('Sander').check();
+    await homePage.sanderFilter.check();
 
-    await expect(page.getByTestId('product-name').first()).toContainText('Sander')
+    await expect(homePage.productNames.first()).toContainText('Sander')
 
-    const productNames = await page.getByTestId('product-name').allTextContents();
+    const productNames = await homePage.productNames.allTextContents();
     
     expect(productNames.every(name => name.includes('Sander'))).toBe(true);
 
