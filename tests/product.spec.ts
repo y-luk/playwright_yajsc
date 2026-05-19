@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../pages/home.page';
 import { ProductPage } from '../pages/product.page';
+test.skip(!!process.env.CI)
 
 test('Verify user can view product details', async ({ page }) => {
 

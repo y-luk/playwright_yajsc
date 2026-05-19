@@ -28,8 +28,7 @@ export default defineConfig(
     files: ['tests/**'],
     extends: [playwright.configs['flat/recommended']],
     rules: {
-      // Customize Playwright rules
-      // ...
+      'playwright/no-conditional-in-test': 'off',
     },
   },
 );
