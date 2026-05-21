@@ -4,12 +4,14 @@ export class CartPage {
     page: Page;
     cartTable: Locator;
     productTitle: Locator;
+    productPrice;
     checkoutButton: Locator;
 
     constructor(page: Page){
         this.page = page;
         this.cartTable = this.page.locator('tbody tr');
         this.productTitle = this.page.getByTestId('product-title');
+        this.productPrice = this.page.getByTestId('product-price');
         this.checkoutButton = this.page.getByTestId('proceed-1');
 
     }

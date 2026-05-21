@@ -1,20 +1,19 @@
-import { test, expect } from '@playwright/test';
-import { HomePage } from '../pages/home.page';
+import { expect } from '@playwright/test';
+import { test } from '../app.fixtures';
 test.skip(!!process.env.CI);
 
 [
   { option: 'Name (A - Z)', order: 'asc' },
   { option: 'Name (Z - A)', order: 'desc' },
 ].forEach(({ option, order }) => {
-  test(`Verify sorting by name ${order}`, async ({ page }) => {
+  test(`Verify sorting by name ${order}`, async ({ app, page }) => {
 
-    const homePage = new HomePage(page);
 
     await page.goto('/');
 
-    await homePage.sortDropdown.selectOption(option);
+    await app.homePage.sortDropdown.selectOption(option);
 
-    const productNames = await homePage.productNames.allTextContents();
+    const productNames = await app.homePage.productNames.allTextContents();
 
     let sorted = [...productNames].sort();
     if (order === 'desc') {
@@ -31,15 +30,14 @@ test.skip(!!process.env.CI);
   { option: 'Price (High - Low)', order: 'desc' },
   { option: 'Price (Low - High)', order: 'asc' },
 ].forEach(({ option, order }) => {
-  test(`Verify user can perform sorting by price ${order}`, async ({ page }) => {
+  test(`Verify user can perform sorting by price ${order}`, async ({ app, page }) => {
 
-const homePage = new HomePage(page);   
 
 await page.goto('/');
 
-await homePage.sortDropdown.selectOption(option);
+await app.homePage.sortDropdown.selectOption(option);
 
-const priceTexts = await homePage.productPrices.allTextContents();
+const priceTexts = await app.homePage.productPrices.allTextContents();
 const prices = priceTexts.map(p => parseFloat(p.replace('$', '')));
 let sorted = [...prices].sort((a, b) => a - b);
 if (order === 'desc') {
