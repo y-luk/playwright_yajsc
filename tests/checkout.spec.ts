@@ -30,11 +30,4 @@ test ('Verify successful payment using loggedInApp fixture', async ({ loggedInAp
 
     await expect(loggedInApp.checkoutPage.successMessage).toBeVisible();
 
-
-
-
-
-
-
-
 })

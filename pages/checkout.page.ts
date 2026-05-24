@@ -1,14 +1,5 @@
 import { Locator, Page } from '@playwright/test';
-
-function getExpirationDate(): string {
-    const date = new Date();
-    date.setMonth(date.getMonth() + 3);
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    const expirationDate = `${month}/${year}`;
-
-    return expirationDate
-}
+import { BillingAddress, CardDetails } from '../test-data/checkout';
 
 export class CheckoutPage {
     page: Page;
@@ -47,20 +38,20 @@ export class CheckoutPage {
     }
 
      async fillBillingAddress() {
-            await this.postalCode.fill('79066');
-            await this.houseNumber.fill('1');
-            await this.country.selectOption('UA');
-            await this.state.fill('Lviv');
+            await this.postalCode.fill(BillingAddress.postalCode);
+            await this.houseNumber.fill(BillingAddress.houseNumber);
+            await this.country.selectOption(BillingAddress.country);
+            await this.state.fill(BillingAddress.state);
 
         }
 
 
     async fillCardDetails() {
-        await this.paymentMethod.selectOption('credit-card');
-        await this.creditCardNumber.fill('1111-1111-1111-1111');
-        await this.expirationDate.fill(getExpirationDate());
-        await this.cvv.fill('111');
-        await this.cardHolderName.fill('Test User');
+        await this.paymentMethod.selectOption(CardDetails.paymentMethod);
+        await this.creditCardNumber.fill(CardDetails.creditCardNumber);
+        await this.expirationDate.fill(CardDetails.expirationDate());
+        await this.cvv.fill(CardDetails.cvv);
+        await this.cardHolderName.fill(CardDetails.cardHolderName);
         
 }
 }
