@@ -1,6 +1,4 @@
 import { Locator, Page } from '@playwright/test';
-import { BillingAddress, CardDetails } from '../test-data/checkout';
-
 export class CheckoutPage {
     page: Page;
     country: Locator;
@@ -37,21 +35,21 @@ export class CheckoutPage {
 
     }
 
-     async fillBillingAddress() {
-            await this.postalCode.fill(BillingAddress.postalCode);
-            await this.houseNumber.fill(BillingAddress.houseNumber);
-            await this.country.selectOption(BillingAddress.country);
-            await this.state.fill(BillingAddress.state);
+     async fillBillingAddress(billingAddressData: {postalCode: string, houseNumber: string, country: string, state: string}) {
+            await this.postalCode.fill(billingAddressData.postalCode);
+            await this.houseNumber.fill(billingAddressData.houseNumber);
+            await this.country.selectOption(billingAddressData.country);
+            await this.state.fill(billingAddressData.state);
 
         }
 
 
-    async fillCardDetails() {
-        await this.paymentMethod.selectOption(CardDetails.paymentMethod);
-        await this.creditCardNumber.fill(CardDetails.creditCardNumber);
-        await this.expirationDate.fill(CardDetails.expirationDate());
-        await this.cvv.fill(CardDetails.cvv);
-        await this.cardHolderName.fill(CardDetails.cardHolderName);
+    async fillCardDetails (cardDetailsData: {paymentMethod: string, creditCardNumber: string, expirationDate: string, cvv: string, cardHolderName: string}) {
+        await this.paymentMethod.selectOption(cardDetailsData.paymentMethod);
+        await this.creditCardNumber.fill(cardDetailsData.creditCardNumber);
+        await this.expirationDate.fill(cardDetailsData.expirationDate);
+        await this.cvv.fill(cardDetailsData.cvv);
+        await this.cardHolderName.fill(cardDetailsData.cardHolderName);
         
 }
 }

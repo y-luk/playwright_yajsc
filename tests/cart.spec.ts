@@ -25,7 +25,7 @@ test('Verify user can add product to cart', async ({ page }) => {
 
     await expect(productPage.alert).toBeVisible();
     await expect(productPage.alert).toContainText('Product added to shopping cart.');
-    await expect(productPage.alert, { timeout: 10000 }).toBeHidden();
+    await expect(productPage.alert).toBeHidden({ timeout: 10000 });
 
 
     await expect(headerFragment.cartQuantity).toHaveText('1');

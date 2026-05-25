@@ -10,7 +10,7 @@ export const BillingAddress = {
 export const CardDetails = {
         paymentMethod: 'credit-card',
         creditCardNumber: '1111-1111-1111-1111',
-        expirationDate: getExpirationDate,
+        expirationDate: getExpirationDate(),
         cvv: '111',
         cardHolderName: 'Test User',
     
