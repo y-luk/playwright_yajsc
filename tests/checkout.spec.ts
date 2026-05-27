@@ -1,5 +1,5 @@
 import { test, expect } from '../app.fixtures';
-import { CardDetails, BillingAddress } from '../test-data/checkout';
+import { cardDetails, billingAddress} from '../test-data/checkout';
 test.skip(!!process.env.CI);
 
 test ('Verify successful payment using loggedInApp fixture', async ({ loggedInApp, page }) => {
@@ -22,11 +22,11 @@ test ('Verify successful payment using loggedInApp fixture', async ({ loggedInAp
 
     await loggedInApp.checkoutPage.proceedToCheckout.click();
 
-    await loggedInApp.checkoutPage.fillBillingAddress(BillingAddress);
+    await loggedInApp.checkoutPage.fillBillingAddress(billingAddress);
 
     await loggedInApp.checkoutPage.proceedToPayment.click();
 
-    await loggedInApp.checkoutPage.fillCardDetails(CardDetails);
+    await loggedInApp.checkoutPage.fillCardDetails(cardDetails);
     await loggedInApp.checkoutPage.confirmButton.click();
 
     await expect(loggedInApp.checkoutPage.successMessage).toBeVisible();
