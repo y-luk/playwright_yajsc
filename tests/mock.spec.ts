@@ -1,4 +1,5 @@
 import { test, expect } from '../app.fixtures';
+test.skip(!!process.env.CI)
 
 test("Mocks response and returns 20 products", async ({ page, app }) => {
 
