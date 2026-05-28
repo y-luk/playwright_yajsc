@@ -13,7 +13,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
-  expect: { timeout: 20000 },
+  expect: { timeout: 10000 },
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -37,11 +37,7 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-  { 
-    name: 'auth', 
-    testMatch: /auth-setup\.spec\.ts/,
-    use: { ...devices['Desktop Chrome'] }
-},
+  { name: 'auth', testMatch: /auth-setup\.spec\.ts/ },
   
   {
   name: 'chromium',
