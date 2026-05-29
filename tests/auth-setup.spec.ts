@@ -4,6 +4,7 @@ import { LoginPage } from '../pages/login.page';
 import { AccountPage } from '../pages/account.page';
 import path from 'path';
 test.skip(!!process.env.CI)
+
 const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 
 test('Verify login with valid credentials', async ({ page }) => {
