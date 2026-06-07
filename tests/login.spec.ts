@@ -8,14 +8,20 @@ const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 
 test.use({storageState: authFile});
 
-test('Verify login with valid credentials', async ({ page }) => {
+test('Verify login with valid credentials', {
+    tag: ['@regression', '@smoke'],
+  }, async ({ page }) => {
 
   const accountPage = new AccountPage(page);
 
-  await page.goto('/account');
+await test.step('Navigate to account page', async () => {
+    await page.goto('/account');
+});
 
-
-  await expect(page).toHaveURL('/account');
-  await expect(accountPage.pageTitle).toHaveText('My account');
-  await expect(accountPage.header.navMenu).toHaveText(regularUser.userName);
+await test.step('Verify user is logged in', async () => {
+    await expect(page).toHaveURL('/account');
+    await expect(accountPage.pageTitle).toHaveText('My account');
+    await expect(accountPage.header.navMenu).toHaveText(regularUser.userName);
+    
+});
 });

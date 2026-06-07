@@ -22,4 +22,5 @@ test('Verify login with valid credentials', async ({ page }) => {
   await expect(accountPage.header.navMenu).toHaveText(regularUser.userName);
 
   await page.context().storageState({ path: authFile });
+  
 });
